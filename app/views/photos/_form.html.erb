@@ -1,0 +1,30 @@
+<%= form_with(model: photo, local: true) do |form| %>
+  <% if photo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+
+      <ul>
+        <% photo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group" data-uppy="photo[image]">
+    <%= form.label :image %>
+    <div>
+      <% if @photo.image.attached? %>
+        <%= image_tag @photo.image, width: 280, data: { behavior: 'uppy-preview' } %>
+      <% else %>
+        <%= image_tag 'no-image.png', width: 280, data: { behavior: 'uppy-preview' } %>
+      <% end %>
+    </div>
+
+    <%= link_to "Upload", "#", data: { behavior: "uppy-trigger" } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
