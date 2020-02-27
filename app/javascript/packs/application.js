@@ -12,6 +12,8 @@ const Uppy = require('@uppy/core')
 const Dashboard = require('@uppy/dashboard')
 const Dropbox = require('@uppy/dropbox')
 const OneDrive = require('@uppy/onedrive')
+const GoogleDrive = require('@uppy/google-drive')
+const Url = require('@uppy/url')
 const AwsS3 = require('@uppy/aws-s3')
 
 require('@uppy/core/dist/style.css')
@@ -44,10 +46,20 @@ function setupUppy(element) {
     companionUrl: 'https://proofreadingservices-companion.herokuapp.com/'
   })
 
-  // uppy.use(OneDrive, {
-  //   target: Dashboard,
-  //   companionUrl: 'https://proofreadingservices-companion.herokuapp.com/'
-  // })
+  uppy.use(OneDrive, {
+    target: Dashboard,
+    companionUrl: 'https://proofreadingservices-companion.herokuapp.com/'
+  })
+
+  uppy.use(GoogleDrive, {
+    target: Dashboard,
+    companionUrl: 'https://proofreadingservices-companion.herokuapp.com/'
+  })
+
+  uppy.use(Url, {
+    target: Dashboard,
+    companionUrl: 'https://proofreadingservices-companion.herokuapp.com/'
+  })
 
   uppy.use(AwsS3, {
     limit: 1,

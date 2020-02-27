@@ -906,6 +906,16 @@
     "@uppy/utils" "^2.2.2"
     preact "8.2.9"
 
+"@uppy/google-drive@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@uppy/google-drive/-/google-drive-1.4.2.tgz#2bd85e6b2aae0cafa9fab86344cb4c8707251c39"
+  integrity sha512-AaCEttI/JYdhu0FRimJxN+Xrx0uNrXmYzSkl98w5b/u/PZiPnCcAmZd3L6aFaFwrXcGseyBFXstQXlSGe/nnIA==
+  dependencies:
+    "@uppy/companion-client" "^1.4.2"
+    "@uppy/provider-views" "^1.5.5"
+    "@uppy/utils" "^2.2.2"
+    preact "8.2.9"
+
 "@uppy/informer@^1.4.2":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@uppy/informer/-/informer-1.4.2.tgz#a55be99fb894e8ed242efa73fc470f4596a2c9b2"
@@ -954,6 +964,15 @@
   integrity sha512-eCwQ5o7I15KnYpYjxI7kvmvBhJxavlxTTitY2Dz9dqLjGoJguwPYJb7fGHTPG9dgSfEV9qBeLXh4QWRjsZkkEQ==
   dependencies:
     "@uppy/utils" "^2.2.2"
+
+"@uppy/url@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@uppy/url/-/url-1.4.5.tgz#663d12e9489bc5a98f89cba049c376783485ad88"
+  integrity sha512-xII2NhLrChqEwOZ5HSgnDIQKXYOha+gUsDCbj3Z8XxHIEZMI6g9YrGJ0f1lFt+ZQACg1mo6Rru3dgo38SLNktA==
+  dependencies:
+    "@uppy/companion-client" "^1.4.2"
+    "@uppy/utils" "^2.2.2"
+    preact "8.2.9"
 
 "@uppy/utils@^2.2.2":
   version "2.2.2"
