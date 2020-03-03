@@ -1,14 +1,5 @@
 module ActiveStorage
   class Attached::Changes::CreateOne #:nodoc:
-    def upload
-      case attachable
-      when ActionDispatch::Http::UploadedFile, Rack::Test::UploadedFile
-        blob.upload_without_unfurling(attachable.open)
-      when Hash
-        blob.upload_without_unfurling(attachable.fetch(:io)) unless attachable.key?(:key_name)
-      end
-    end
-
     private
       def find_or_build_blob
         case attachable
@@ -20,23 +11,35 @@ module ActiveStorage
             filename: attachable.original_filename,
             content_type: attachable.content_type
         when Hash
-          if attachable.key?(:key_name)
-            etag = attachable[:etag].remove(/\"/)
-            ActiveStorage::Blob.new(
-              key: attachable[:key_name],
-              filename: attachable[:filename],
-              content_type: attachable[:content_type],
-              byte_size: attachable[:byte_size],
-              checksum: [[etag].pack('H*')].pack('m0')
-            )
-          else
-            ActiveStorage::Blob.build_after_unfurling(attachable)
-          end
+          ActiveStorage::Blob.build_after_unfurling(attachable)
         when String
-          ActiveStorage::Blob.find_signed(attachable)
+          blob_from_json_attachable || ActiveStorage::Blob.find_signed(attachable)
         else
           raise ArgumentError, "Could not find or build blob: expected attachable, got #{attachable.inspect}"
         end
+      end
+
+      def blob_from_json_attachable
+        json = attachable_json
+        return nil if json.nil?
+        return nil unless json.key?('key_name')
+
+        ActiveStorage::Blob.new(
+          key: json['key_name'],
+          filename: json['filename'],
+          content_type: json['content_type'],
+          byte_size: json['byte_size'],
+          checksum: [[json['etag'].remove(/\"/)].pack('H*')].pack('m0')
+        )
+      end
+
+      def attachable_json
+        result = JSON.parse(attachable)
+        return result if result.is_a?(Hash)
+
+        nil
+      rescue JSON::ParserError, TypeError
+        nil
       end
   end
 end

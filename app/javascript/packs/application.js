@@ -82,39 +82,19 @@ function setupUppy(element) {
 }
 
 function appendUploadedFile(element, file, field_name) {
+  let fileObj = {
+    key_name: file.response.body.key,
+    filename: file.name,
+    content_type: file.type,
+    byte_size: file.size,
+    etag: file.response.body.etag
+  }
+
   let hiddenField = document.createElement('input')
   hiddenField.setAttribute('type', 'hidden')
-  hiddenField.setAttribute('name', `${field_name}[key_name]`)
+  hiddenField.setAttribute('name', field_name)
   hiddenField.setAttribute('data-pending-upload', true)
-  hiddenField.setAttribute('value', file.response.body.key)
-  element.appendChild(hiddenField)
-
-  hiddenField = document.createElement('input')
-  hiddenField.setAttribute('type', 'hidden')
-  hiddenField.setAttribute('name', `${field_name}[filename]`)
-  hiddenField.setAttribute('data-pending-upload', true)
-  hiddenField.setAttribute('value', file.name)
-  element.appendChild(hiddenField)
-
-  hiddenField = document.createElement('input')
-  hiddenField.setAttribute('type', 'hidden')
-  hiddenField.setAttribute('name', `${field_name}[content_type]`)
-  hiddenField.setAttribute('data-pending-upload', true)
-  hiddenField.setAttribute('value', file.type)
-  element.appendChild(hiddenField)
-
-  hiddenField = document.createElement('input')
-  hiddenField.setAttribute('type', 'hidden')
-  hiddenField.setAttribute('name', `${field_name}[byte_size]`)
-  hiddenField.setAttribute('data-pending-upload', true)
-  hiddenField.setAttribute('value', file.size)
-  element.appendChild(hiddenField)
-
-  hiddenField = document.createElement('input')
-  hiddenField.setAttribute('type', 'hidden')
-  hiddenField.setAttribute('name', `${field_name}[etag]`)
-  hiddenField.setAttribute('data-pending-upload', true)
-  hiddenField.setAttribute('value', file.response.body.etag)
+  hiddenField.setAttribute('value', JSON.stringify(fileObj))
   element.appendChild(hiddenField)
 }
 
